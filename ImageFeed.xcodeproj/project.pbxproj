@@ -9,21 +9,25 @@
 /* Begin PBXBuildFile section */
 		6C6CD72A297A949700154F62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6CD729297A949700154F62 /* AppDelegate.swift */; };
 		6C6CD72C297A949700154F62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6CD72B297A949700154F62 /* SceneDelegate.swift */; };
-		6C6CD72E297A949700154F62 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6CD72D297A949700154F62 /* ViewController.swift */; };
+		6C6CD72E297A949700154F62 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6CD72D297A949700154F62 /* ImagesListViewController.swift */; };
 		6C6CD731297A949700154F62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C6CD72F297A949700154F62 /* Main.storyboard */; };
 		6C6CD733297A949B00154F62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C6CD732297A949B00154F62 /* Assets.xcassets */; };
 		6C6CD736297A949B00154F62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C6CD734297A949B00154F62 /* LaunchScreen.storyboard */; };
+		6C77E10D297C217E00A40FAD /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C77E10C297C217E00A40FAD /* ImagesListCell.swift */; };
+		6C83FC24297E9AEA002F5DA4 /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C83FC22297E9AEA002F5DA4 /* SF-Pro.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6C6CD726297A949700154F62 /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C6CD729297A949700154F62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6C6CD72B297A949700154F62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6C6CD72D297A949700154F62 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6C6CD72D297A949700154F62 /* ImagesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListViewController.swift; sourceTree = "<group>"; };
 		6C6CD730297A949700154F62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6C6CD732297A949B00154F62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C6CD735297A949B00154F62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6C6CD737297A949B00154F62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6C77E10C297C217E00A40FAD /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
+		6C83FC22297E9AEA002F5DA4 /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +62,39 @@
 			children = (
 				6C6CD729297A949700154F62 /* AppDelegate.swift */,
 				6C6CD72B297A949700154F62 /* SceneDelegate.swift */,
-				6C6CD72D297A949700154F62 /* ViewController.swift */,
+				6C77E10E297C224100A40FAD /* ImagesList */,
 				6C6CD72F297A949700154F62 /* Main.storyboard */,
+				6C700578297AAD9300557C5D /* Resources */,
+			);
+			path = ImageFeed;
+			sourceTree = "<group>";
+		};
+		6C700578297AAD9300557C5D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				6C6CD732297A949B00154F62 /* Assets.xcassets */,
 				6C6CD734297A949B00154F62 /* LaunchScreen.storyboard */,
 				6C6CD737297A949B00154F62 /* Info.plist */,
+				6C83FC25297E9B02002F5DA4 /* Fonts */,
 			);
-			path = ImageFeed;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6C77E10E297C224100A40FAD /* ImagesList */ = {
+			isa = PBXGroup;
+			children = (
+				6C6CD72D297A949700154F62 /* ImagesListViewController.swift */,
+				6C77E10C297C217E00A40FAD /* ImagesListCell.swift */,
+			);
+			path = ImagesList;
+			sourceTree = "<group>";
+		};
+		6C83FC25297E9B02002F5DA4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6C83FC22297E9AEA002F5DA4 /* SF-Pro.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,6 +158,7 @@
 				6C6CD736297A949B00154F62 /* LaunchScreen.storyboard in Resources */,
 				6C6CD733297A949B00154F62 /* Assets.xcassets in Resources */,
 				6C6CD731297A949700154F62 /* Main.storyboard in Resources */,
+				6C83FC24297E9AEA002F5DA4 /* SF-Pro.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +169,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C6CD72E297A949700154F62 /* ViewController.swift in Sources */,
+				6C6CD72E297A949700154F62 /* ImagesListViewController.swift in Sources */,
+				6C77E10D297C217E00A40FAD /* ImagesListCell.swift in Sources */,
 				6C6CD72A297A949700154F62 /* AppDelegate.swift in Sources */,
 				6C6CD72C297A949700154F62 /* SceneDelegate.swift in Sources */,
 			);
@@ -216,7 +248,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +302,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -289,12 +321,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = EB6R5QS764;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ImageFeed/Info.plist;
+				INFOPLIST_FILE = ImageFeed/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,9 +335,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.toxarey.ImageFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -317,12 +353,13 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = EB6R5QS764;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ImageFeed/Info.plist;
+				INFOPLIST_FILE = ImageFeed/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -330,9 +367,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.toxarey.ImageFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
