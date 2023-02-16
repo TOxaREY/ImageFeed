@@ -64,11 +64,11 @@ class ProfileViewController: UIViewController {
     }
     
     private func addSubview() {
-        view.addSubview(avatarImageView!)
-        view.addSubview(nameLabel!)
-        view.addSubview(loginNameLabel!)
-        view.addSubview(descriptionLabel!)
-        view.addSubview(logoutButton!)
+        view.addSubview(avatarImageView ?? UIImageView())
+        view.addSubview(nameLabel ?? UILabel())
+        view.addSubview(loginNameLabel ?? UILabel())
+        view.addSubview(descriptionLabel ?? UILabel())
+        view.addSubview(logoutButton ?? UIButton())
     }
     
     private func makeConstraints() {
