@@ -7,22 +7,22 @@
 
 import Foundation
 
-fileprivate let UnsplashOAuthTokenURL = URL(string: "https://unsplash.com/oauth/token")!
+fileprivate let unsplashOAuthTokenURL = URL(string: "https://unsplash.com/oauth/token")!
 
-class OAuth2Service {
+final class OAuth2Service {
     private enum NetworkError: Error {
         case codeError
     }
     
     func fetchOAuthToken(code: String, completion: @escaping (Swift.Result<String, Error>) -> Void) {
-        var request = URLRequest(url: UnsplashOAuthTokenURL)
+        var request = URLRequest(url: unsplashOAuthTokenURL)
         request.httpMethod = "POST"
         
         var urlComponents = URLComponents()
         urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: AccessKey),
-            URLQueryItem(name: "client_secret", value: SecretKey),
-            URLQueryItem(name: "redirect_uri", value: RedirectURI),
+            URLQueryItem(name: "client_id", value: accessKey),
+            URLQueryItem(name: "client_secret", value: secretKey),
+            URLQueryItem(name: "redirect_uri", value: redirectURI),
             URLQueryItem(name: "code", value: code),
             URLQueryItem(name: "grant_type", value: "authorization_code")
         ]

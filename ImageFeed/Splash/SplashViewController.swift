@@ -7,17 +7,21 @@
 
 import UIKit
 
-class SplashViewController: UIViewController {
+final class SplashViewController: UIViewController {
     private let oauth2Service = OAuth2Service()
     private let oauth2TokenStorage = OAuth2TokenStorage()
-
+    private var isFirstCall = true
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let token = oauth2TokenStorage.token {
-            switchToTabBarController()
-        } else {
-            performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
+        if isFirstCall {
+            isFirstCall = false
+            if let token = oauth2TokenStorage.token {
+                switchToTabBarController()
+            } else {
+                performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
+            }
         }
     }
     
@@ -31,11 +35,11 @@ class SplashViewController: UIViewController {
 
 extension SplashViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ShowAuthenticationScreenSegueIdentifier {
+        if segue.identifier == showAuthenticationScreenSegueIdentifier {
             guard
                 let navigationController = segue.destination as? UINavigationController,
                 let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else { fatalError("Failed to prepare for \(ShowAuthenticationScreenSegueIdentifier)")}
+            else { fatalError("Failed to prepare for \(showAuthenticationScreenSegueIdentifier)")}
             viewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)

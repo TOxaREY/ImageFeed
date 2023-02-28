@@ -21,18 +21,18 @@
             <objects>
                 <viewController title="Auth" id="fgV-Uc-kmU" customClass="AuthViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fDq-6E-Xb1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="804"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth_screen_logo" translatesAutoresizingMaskIntoConstraints="NO" id="uOH-eW-wS9">
-                                <rect key="frame" x="177" y="379" width="60" height="60"/>
+                                <rect key="frame" x="177" y="425" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="d6B-eA-oyK"/>
                                     <constraint firstAttribute="height" constant="60" id="id2-pN-EgX"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l8B-YV-QMg">
-                                <rect key="frame" x="16" y="632" width="382" height="48"/>
+                                <rect key="frame" x="16" y="724" width="382" height="48"/>
                                 <color key="backgroundColor" name="YP White"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="x0n-nW-VUa"/>
@@ -133,7 +133,16 @@
                     <view key="view" contentMode="scaleToFill" id="J5w-q8-2RW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_screen_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Ckx-fi-pKA">
+                                <rect key="frame" x="169.5" y="416" width="75" height="78"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="WFS-yd-50o"/>
+                        <constraints>
+                            <constraint firstItem="Ckx-fi-pKA" firstAttribute="centerX" secondItem="WFS-yd-50o" secondAttribute="centerX" id="IKR-Gw-iC6"/>
+                            <constraint firstItem="Ckx-fi-pKA" firstAttribute="centerY" secondItem="WFS-yd-50o" secondAttribute="centerY" id="ouo-HX-Dpv"/>
+                        </constraints>
                     </view>
                     <connections>
                         <segue destination="EaH-va-TfL" kind="presentation" identifier="ShowAuthView" animates="NO" modalPresentationStyle="fullScreen" id="CD4-z9-uC5"/>
@@ -345,10 +354,9 @@
         <!--Navigation Controller-->
         <scene sceneID="gAp-hx-U8F">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EaH-va-TfL" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="EaH-va-TfL" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="BWh-yA-nRY">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="YP Black"/>
                     </navigationBar>
@@ -368,6 +376,7 @@
         <image name="Backward" width="24" height="24"/>
         <image name="Sharing" width="50" height="50"/>
         <image name="auth_screen_logo" width="90" height="90"/>
+        <image name="launch_screen_logo" width="75" height="78"/>
         <image name="nav_back_button" width="24" height="24"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <image name="tab_profile_active" width="30" height="30"/>
