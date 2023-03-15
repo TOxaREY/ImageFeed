@@ -8,9 +8,21 @@
 import UIKit
 
 final class SplashViewController: UIViewController {
+    private var splashScreenLogoImageView: UIImageView?
     private let oauth2Service = OAuth2Service()
     private let oauth2TokenStorage = OAuth2TokenStorage()
     private var isFirstCall = true
+    private let profileService = ProfileService.shared
+    private var alertConrtoller: AlertController?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configureView()
+        addSubview()
+        makeConstraints()
+        alertConrtoller = AlertController(viewController: self)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -18,11 +30,34 @@ final class SplashViewController: UIViewController {
         if isFirstCall {
             isFirstCall = false
             if let token = oauth2TokenStorage.token {
-                switchToTabBarController()
+                fetchProfile(token)
             } else {
-                performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
+                let storyboard = UIStoryboard(name: "Main", bundle: .main)
+                let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as! AuthViewController
+                authViewController.delegate = self
+                authViewController.modalPresentationStyle = .fullScreen
+                present(authViewController, animated: true)
             }
         }
+    }
+    
+    private func configureView() {
+        let splashScreenLogoImage = UIImage(named: "launch_screen_logo")
+        let splashScreenLogoImageView = UIImageView(image: splashScreenLogoImage)
+        splashScreenLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        splashScreenLogoImageView.contentMode = .scaleAspectFit
+        self.splashScreenLogoImageView = splashScreenLogoImageView
+    }
+    
+    private func addSubview() {
+        view.addSubview(splashScreenLogoImageView ?? UIImageView())
+    }
+    
+    private func makeConstraints() {
+        NSLayoutConstraint.activate([
+            splashScreenLogoImageView!.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            splashScreenLogoImageView!.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
     }
     
     private func switchToTabBarController() {
@@ -51,6 +86,7 @@ extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
+            UIBlockingProgressHUD.show()
             self.fetchOAuthToken(code)
         }
     }
@@ -62,8 +98,28 @@ extension SplashViewController: AuthViewControllerDelegate {
                 switch result {
                 case .success(let authToken):
                     self.oauth2TokenStorage.token = authToken
-                    self.switchToTabBarController()
+                    self.fetchProfile(authToken)
                 case .failure(let error):
+                    UIBlockingProgressHUD.dismiss()
+                    self.alertConrtoller?.show()
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    private func fetchProfile(_ token: String) {
+        profileService.fetchProfile(token: token) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                switch result {
+                case .success(let profile):
+                    ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in }
+                    self.switchToTabBarController()
+                    UIBlockingProgressHUD.dismiss()
+                case .failure(let error):
+                    UIBlockingProgressHUD.dismiss()
+                    self.alertConrtoller?.show()
                     print(error)
                 }
             }

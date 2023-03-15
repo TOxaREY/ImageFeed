@@ -10,11 +10,16 @@ import Foundation
 fileprivate let unsplashOAuthTokenURL = URL(string: "https://unsplash.com/oauth/token")!
 
 final class OAuth2Service {
-    private enum NetworkError: Error {
-        case codeError
-    }
+    
+    private let urlsSession = URLSession.shared
+    private var task: URLSessionTask?
+    private var lastCode: String?
     
     func fetchOAuthToken(code: String, completion: @escaping (Swift.Result<String, Error>) -> Void) {
+        assert(Thread.isMainThread)
+        if lastCode == code { return }
+        task?.cancel()
+        lastCode = code
         var request = URLRequest(url: unsplashOAuthTokenURL)
         request.httpMethod = "POST"
         
@@ -28,30 +33,17 @@ final class OAuth2Service {
         ]
         request.httpBody = urlComponents.percentEncodedQuery?.data(using: .utf8)
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            if let response = response as? HTTPURLResponse,
-               response.statusCode < 200 || response.statusCode >= 300 {
-                completion(.failure(NetworkError.codeError))
-                return
-            }
-            
-            guard let data = data else { return }
-            
-            do {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let authTokenBody = try decoder.decode(AuthTokenResponseBody.self, from: data)
-                completion(.success(authTokenBody.accessToken))
-            } catch {
+        let task = urlsSession.objectTask(for: request) { [weak self] (result: Result<AuthTokenResponseBody, Error>) in
+            switch result {
+            case .success(let body):
+                completion(.success(body.accessToken))
+            case .failure(let error):
+                self?.lastCode = nil
                 completion(.failure(error))
             }
+            self?.task = nil
         }
-        
+        self.task = task
         task.resume()
     }
 }

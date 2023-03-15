@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     private var avatarImageView: UIImageView?
@@ -13,6 +14,8 @@ final class ProfileViewController: UIViewController {
     private var loginNameLabel: UILabel?
     private var descriptionLabel: UILabel?
     private var logoutButton: UIButton?
+    private let profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,10 +23,32 @@ final class ProfileViewController: UIViewController {
         configureView()
         addSubview()
         makeConstraints()
+        updateProfileDatails(profile: profileService.profile!)
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(forName: ProfileImageService.didChangeNotification,
+                         object: nil,
+                         queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarUrl,
+            let url = URL(string: profileImageURL)
+        else { return }
+        let processor = RoundCornerImageProcessor(cornerRadius: 61)
+        avatarImageView?.kf.setImage(with: url,
+                                     placeholder: UIImage(named: "avatar_placeholder"),
+                                     options: [.cacheSerializer(FormatIndicatedCacheSerializer.png),
+                                               .processor(processor)])
     }
     
     private func configureView() {
-        let avatarImage = UIImage(named: "Userpick")
+        let avatarImage = UIImage(named: "avatar_placeholder")
         let avatarImageView = UIImageView(image: avatarImage)
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.contentMode = .scaleAspectFit
@@ -83,11 +108,20 @@ final class ProfileViewController: UIViewController {
             loginNameLabel!.topAnchor.constraint(equalTo: self.nameLabel!.bottomAnchor, constant: 8),
             loginNameLabel!.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             loginNameLabel!.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            descriptionLabel!.topAnchor.constraint(equalTo: self.loginNameLabel!.bottomAnchor, constant: 8),
+            descriptionLabel!.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            descriptionLabel!.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
             logoutButton!.widthAnchor.constraint(equalToConstant: 24),
             logoutButton!.heightAnchor.constraint(equalToConstant: 24),
             logoutButton!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 56),
             logoutButton!.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
         ])
+    }
+    
+    private func updateProfileDatails(profile: Profile) {
+        nameLabel?.text = profile.name
+        loginNameLabel?.text = profile.loginName
+        descriptionLabel?.text = profile.bio
     }
     
     @objc private func didTapLogoutButton() {
