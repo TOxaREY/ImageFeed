@@ -17,7 +17,7 @@ final class OAuth2Service {
     
     func fetchOAuthToken(code: String, completion: @escaping (Swift.Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
-        if lastCode == code { return }
+        guard lastCode != code else { return }
         task?.cancel()
         lastCode = code
         var request = URLRequest(url: unsplashOAuthTokenURL)

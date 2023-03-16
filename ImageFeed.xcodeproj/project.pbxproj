@@ -11,7 +11,7 @@
 		6C0AB9F329C1A21400CA8261 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0AB9F229C1A21400CA8261 /* TabBarController.swift */; };
 		6C1AF9FB29C065E6000DBF9B /* UserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1AF9FA29C065E6000DBF9B /* UserResult.swift */; };
 		6C1AF9FD29C08A0E000DBF9B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1AF9FC29C08A0E000DBF9B /* Extensions.swift */; };
-		6C1AF9FF29C096D0000DBF9B /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1AF9FE29C096D0000DBF9B /* AlertController.swift */; };
+		6C1AF9FF29C096D0000DBF9B /* AlertProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1AF9FE29C096D0000DBF9B /* AlertProvider.swift */; };
 		6C2BAC9429BF4BB20064CEA0 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 6C2BAC9329BF4BB20064CEA0 /* ProgressHUD */; };
 		6C3916DD29A5FA5A007637B2 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3916DC29A5FA5A007637B2 /* WebViewViewController.swift */; };
 		6C3916DF29A614D3007637B2 /* WebViewViewContrlollerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3916DE29A614D3007637B2 /* WebViewViewContrlollerDelegate.swift */; };
@@ -45,7 +45,7 @@
 		6C0AB9F229C1A21400CA8261 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		6C1AF9FA29C065E6000DBF9B /* UserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResult.swift; sourceTree = "<group>"; };
 		6C1AF9FC29C08A0E000DBF9B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		6C1AF9FE29C096D0000DBF9B /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		6C1AF9FE29C096D0000DBF9B /* AlertProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProvider.swift; sourceTree = "<group>"; };
 		6C3916DC29A5FA5A007637B2 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		6C3916DE29A614D3007637B2 /* WebViewViewContrlollerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewContrlollerDelegate.swift; sourceTree = "<group>"; };
 		6C3916E029A62C54007637B2 /* AuthTokenResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTokenResponseBody.swift; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				6C3916E629A64EFD007637B2 /* SplashViewController.swift */,
-				6C1AF9FE29C096D0000DBF9B /* AlertController.swift */,
+				6C1AF9FE29C096D0000DBF9B /* AlertProvider.swift */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -329,7 +329,7 @@
 				6C0AB9F329C1A21400CA8261 /* TabBarController.swift in Sources */,
 				6C1AF9FD29C08A0E000DBF9B /* Extensions.swift in Sources */,
 				6CCC7E6D298BEAE30037C464 /* ProfileViewController.swift in Sources */,
-				6C1AF9FF29C096D0000DBF9B /* AlertController.swift in Sources */,
+				6C1AF9FF29C096D0000DBF9B /* AlertProvider.swift in Sources */,
 				6C6CD72A297A949700154F62 /* AppDelegate.swift in Sources */,
 				6CB6796829A51BA400ABEAC2 /* AuthViewController.swift in Sources */,
 				6CB6796629A50B9B00ABEAC2 /* Constants.swift in Sources */,

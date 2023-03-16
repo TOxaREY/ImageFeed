@@ -1,5 +1,5 @@
 //
-//  AlertController.swift
+//  AlertProvider.swift
 //  ImageFeed
 //
 //  Created by Anton Reynikov on 14.03.2023.
@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 
-struct AlertController {
+struct AlertProvider {
     
-    weak var viewController: UIViewController?
+    private weak var viewController: UIViewController?
     
     init(viewController: UIViewController?) {
         self.viewController = viewController

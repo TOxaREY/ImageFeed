@@ -13,7 +13,7 @@ final class SplashViewController: UIViewController {
     private let oauth2TokenStorage = OAuth2TokenStorage()
     private var isFirstCall = true
     private let profileService = ProfileService.shared
-    private var alertConrtoller: AlertController?
+    private var alertProvider: AlertProvider?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,23 +21,22 @@ final class SplashViewController: UIViewController {
         configureView()
         addSubview()
         makeConstraints()
-        alertConrtoller = AlertController(viewController: self)
+        alertProvider = AlertProvider(viewController: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if isFirstCall {
-            isFirstCall = false
-            if let token = oauth2TokenStorage.token {
-                fetchProfile(token)
-            } else {
-                let storyboard = UIStoryboard(name: "Main", bundle: .main)
-                let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as! AuthViewController
-                authViewController.delegate = self
-                authViewController.modalPresentationStyle = .fullScreen
-                present(authViewController, animated: true)
-            }
+        guard isFirstCall else { return }
+        isFirstCall = false
+        if let token = oauth2TokenStorage.token {
+            fetchProfile(token)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: .main)
+            let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as! AuthViewController
+            authViewController.delegate = self
+            authViewController.modalPresentationStyle = .fullScreen
+            present(authViewController, animated: true)
         }
     }
     
@@ -100,9 +99,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                     self.oauth2TokenStorage.token = authToken
                     self.fetchProfile(authToken)
                 case .failure(let error):
-                    UIBlockingProgressHUD.dismiss()
-                    self.alertConrtoller?.show()
-                    print(error)
+                    self.failureErrorAction(error)
                 }
             }
         }
@@ -110,19 +107,21 @@ extension SplashViewController: AuthViewControllerDelegate {
     
     private func fetchProfile(_ token: String) {
         profileService.fetchProfile(token: token) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                switch result {
-                case .success(let profile):
-                    ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in }
-                    self.switchToTabBarController()
-                    UIBlockingProgressHUD.dismiss()
-                case .failure(let error):
-                    UIBlockingProgressHUD.dismiss()
-                    self.alertConrtoller?.show()
-                    print(error)
-                }
+            guard let self = self else { return }
+            switch result {
+            case .success(let profile):
+                ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in }
+                self.switchToTabBarController()
+                UIBlockingProgressHUD.dismiss()
+            case .failure(let error):
+                self.failureErrorAction(error)
             }
         }
+    }
+    
+    private func failureErrorAction(_ error: Error) {
+        UIBlockingProgressHUD.dismiss()
+        self.alertProvider?.show()
+        print(error)
     }
 }
