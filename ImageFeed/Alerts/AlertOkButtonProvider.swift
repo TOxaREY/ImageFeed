@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-struct AlertProvider {
+struct AlertOkButtonProvider {
     
     private weak var viewController: UIViewController?
     
@@ -17,10 +17,10 @@ struct AlertProvider {
         self.viewController = viewController
     }
     
-    func show() {
+    func show(message: String) {
         let alert = UIAlertController(
             title: "Что-то пошло не так(",
-            message: "Не удалось войти в систему",
+            message: message,
             preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Ок", style: .default) { _ in

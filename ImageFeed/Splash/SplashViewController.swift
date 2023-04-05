@@ -13,7 +13,7 @@ final class SplashViewController: UIViewController {
     private let oauth2TokenStorage = OAuth2TokenStorage()
     private var isFirstCall = true
     private let profileService = ProfileService.shared
-    private var alertProvider: AlertProvider?
+    private var alertProvider: AlertOkButtonProvider?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,7 @@ final class SplashViewController: UIViewController {
         configureView()
         addSubview()
         makeConstraints()
-        alertProvider = AlertProvider(viewController: self)
+        alertProvider = AlertOkButtonProvider(viewController: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -121,7 +121,8 @@ extension SplashViewController: AuthViewControllerDelegate {
     
     private func failureErrorAction(_ error: Error) {
         UIBlockingProgressHUD.dismiss()
-        self.alertProvider?.show()
+        self.alertProvider?.show(message: "Не удалось войти в систему")
         print(error)
     }
 }
+

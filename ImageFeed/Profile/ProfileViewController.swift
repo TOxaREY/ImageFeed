@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import WebKit
 
 final class ProfileViewController: UIViewController {
     private var avatarImageView: UIImageView?
@@ -16,6 +17,8 @@ final class ProfileViewController: UIViewController {
     private var logoutButton: UIButton?
     private let profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
+    private let oauth2TokenStorage = OAuth2TokenStorage()
+    private var alertProvider: AlertTwoButtonProvider?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +35,17 @@ final class ProfileViewController: UIViewController {
                 guard let self = self else { return }
                 self.updateAvatar()
             }
+        alertProvider = AlertTwoButtonProvider(viewController: self)
         updateAvatar()
+    }
+    
+    static func clean() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { record in
+            record.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record]) {}
+            }
+        }
     }
     
     private func updateAvatar() {
@@ -124,7 +137,23 @@ final class ProfileViewController: UIViewController {
         descriptionLabel?.text = profile.bio
     }
     
+    private func segueSplashViewController() {
+        let splashViewController = SplashViewController()
+        splashViewController.modalPresentationStyle = .fullScreen
+        present(splashViewController, animated: true)
+    }
+    
+    private func logoutAction() {
+        oauth2TokenStorage.removeToken()
+        ProfileViewController.clean()
+        segueSplashViewController()
+    }
+    
     @objc private func didTapLogoutButton() {
-        
+        alertProvider?.show(title: "Пока, пока!",
+                            message: "Уверены что хотите выйти?",
+                            yesButtonTitle: "Да",
+                            noButtonTitle: "Нет",
+                            action: logoutAction)
     }
 }

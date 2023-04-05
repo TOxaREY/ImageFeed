@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class SingleImageViewController: UIViewController {
+    var fullImageURL: URL?
     var image: UIImage! {
         didSet {
             guard isViewLoaded else { return }
@@ -17,13 +19,14 @@ final class SingleImageViewController: UIViewController {
     }
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
+    private var alertProvider: AlertTwoButtonProvider?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadFullSizeImage()
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
-        imageView.image = image
-        rescaleAndCenterImageInScrollView(image: image)
+        alertProvider = AlertTwoButtonProvider(viewController: self)
     }
     
     @IBAction func didTapBackButton(_ sender: Any) {
@@ -53,6 +56,28 @@ final class SingleImageViewController: UIViewController {
         let x = (newContentSize.width - visibleRectSize.width) / 2
         let y = (newContentSize.height - visibleRectSize.height) / 2
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
+    }
+    
+    private func loadFullSizeImage() {
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: fullImageURL) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
+            guard let self = self else { return }
+            switch result {
+            case .success(let imageResult):
+                self.image = imageResult.image
+            case .failure:
+                self.showError()
+            }
+        }
+    }
+    
+    private func showError() {
+        alertProvider?.show(title: "Что-то пошло не так(",
+                            message: "Попробовать ещё раз?",
+                            yesButtonTitle: "Повторить",
+                            noButtonTitle: "Не надо",
+                            action: loadFullSizeImage)
     }
 }
 

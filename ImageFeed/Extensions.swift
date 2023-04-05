@@ -8,10 +8,6 @@
 import Foundation
 
 extension URLSession {
-    private enum NetworkError: Error {
-        case codeError
-    }
-    
     func objectTask<T: Decodable>(
         for request: URLRequest,
         completion: @escaping (Result<T, Error>) -> Void
@@ -33,6 +29,7 @@ extension URLSession {
                 do {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    decoder.dateDecodingStrategy = .iso8601
                     let body = try decoder.decode(T.self, from: data)
                     completion(.success(body))
                 } catch {

@@ -22,4 +22,12 @@ final class OAuth2TokenStorage {
             }
         }
     }
+    
+    func removeToken() {
+        let removeSuccessful = KeychainWrapper.standard.removeObject(forKey: "bearerToken")
+        guard removeSuccessful else {
+            print("неудалось удалить токен")
+            return
+        }
+    }
 }
