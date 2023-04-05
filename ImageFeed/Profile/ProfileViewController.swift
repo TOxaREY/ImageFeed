@@ -19,6 +19,7 @@ final class ProfileViewController: UIViewController {
     private var profileImageServiceObserver: NSObjectProtocol?
     private let oauth2TokenStorage = OAuth2TokenStorage()
     private var alertProvider: AlertTwoButtonProvider?
+    private var animationLayers = Set<CALayer>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,10 @@ final class ProfileViewController: UIViewController {
         addSubview()
         makeConstraints()
         updateProfileDatails(profile: profileService.profile!)
+        gradientAvatar()
+        gradientLabel(label: nameLabel!, width: 225, height: 25, key: "nameLabel")
+        gradientLabel(label: loginNameLabel!, width: 90, height: 18, key: "loginLabel")
+        gradientLabel(label: descriptionLabel!, width: 70, height: 15, key: "descripLabel")
         profileImageServiceObserver = NotificationCenter.default
             .addObserver(forName: ProfileImageService.didChangeNotification,
                          object: nil,
@@ -58,6 +63,7 @@ final class ProfileViewController: UIViewController {
                                      placeholder: UIImage(named: "avatar_placeholder"),
                                      options: [.cacheSerializer(FormatIndicatedCacheSerializer.png),
                                                .processor(processor)])
+        removeGradients()
     }
     
     private func configureView() {
@@ -147,6 +153,60 @@ final class ProfileViewController: UIViewController {
         oauth2TokenStorage.removeToken()
         ProfileViewController.clean()
         segueSplashViewController()
+    }
+    
+    private func gradientAvatar() {
+        let gradient = CAGradientLayer()
+        gradient.frame = CGRect(origin: .zero, size: CGSize(width: 70, height: 70))
+        gradient.locations = [0, 0.1, 0.3]
+        gradient.colors = [
+            UIColor(red: 0.682, green: 0.686, blue: 0.706, alpha: 1).cgColor,
+            UIColor(red: 0.531, green: 0.533, blue: 0.553, alpha: 1).cgColor,
+            UIColor(red: 0.431, green: 0.433, blue: 0.453, alpha: 1).cgColor
+        ]
+        gradient.startPoint = CGPoint(x: 0, y: 0.5)
+        gradient.endPoint = CGPoint(x: 1, y: 0.5)
+        gradient.cornerRadius = 35
+        gradient.masksToBounds = true
+        avatarImageView?.layer.addSublayer(gradient)
+        
+        let gradientChangeAnimation = CABasicAnimation(keyPath: "locations")
+        gradientChangeAnimation.duration = 1.0
+        gradientChangeAnimation.repeatCount = .infinity
+        gradientChangeAnimation.fromValue = [0, 0.1, 0.3]
+        gradientChangeAnimation.toValue = [0, 0.8, 1]
+        gradient.add(gradientChangeAnimation, forKey: "locationsChangeAvatar")
+        animationLayers.insert(gradient)
+    }
+    
+    private func gradientLabel(label: UILabel, width: CGFloat, height: CGFloat, key: String) {
+        let gradient = CAGradientLayer()
+        gradient.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
+        gradient.locations = [0, 0.1, 0.3]
+        gradient.colors = [
+            UIColor(red: 0.682, green: 0.686, blue: 0.706, alpha: 1).cgColor,
+            UIColor(red: 0.531, green: 0.533, blue: 0.553, alpha: 1).cgColor,
+            UIColor(red: 0.431, green: 0.433, blue: 0.453, alpha: 1).cgColor
+        ]
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.endPoint = CGPoint(x: 1.0, y: 0.0)
+        gradient.cornerRadius = 9
+        gradient.masksToBounds = true
+        label.layer.addSublayer(gradient)
+        
+        let gradientChangeAnimation = CABasicAnimation(keyPath: "locations")
+        gradientChangeAnimation.duration = 1.0
+        gradientChangeAnimation.repeatCount = .infinity
+        gradientChangeAnimation.fromValue = [0, 0.1, 0.3]
+        gradientChangeAnimation.toValue = [0, 0.8, 1]
+        gradient.add(gradientChangeAnimation, forKey: key)
+        animationLayers.insert(gradient)
+    }
+    
+    private func removeGradients() {
+        for grad in animationLayers {
+            grad.removeFromSuperlayer()
+        }
     }
     
     @objc private func didTapLogoutButton() {
