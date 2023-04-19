@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-struct AlertOkButtonProvider {
+public struct AlertOkButtonProvider {
     
     private weak var viewController: UIViewController?
     

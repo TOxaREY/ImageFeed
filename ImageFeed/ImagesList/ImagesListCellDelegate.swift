@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ImagesListCellDelegate: AnyObject {
     func imageListCellDidTapLike(_ cell: ImagesListCell)

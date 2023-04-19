@@ -6,61 +6,30 @@
 //
 
 import UIKit
-import Kingfisher
-import WebKit
 
-final class ProfileViewController: UIViewController {
-    private var avatarImageView: UIImageView?
+final class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
+    var presenter: ProfilePresenterProtocol?
+    var avatarImageView: UIImageView?
     private var nameLabel: UILabel?
     private var loginNameLabel: UILabel?
     private var descriptionLabel: UILabel?
     private var logoutButton: UIButton?
-    private let profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
-    private let oauth2TokenStorage = OAuth2TokenStorage()
     private var alertProvider: AlertTwoButtonProvider?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "YP Black")
-        configureView()
-        addSubview()
-        makeConstraints()
-        updateProfileDatails(profile: profileService.profile!)
-        profileImageServiceObserver = NotificationCenter.default
-            .addObserver(forName: ProfileImageService.didChangeNotification,
-                         object: nil,
-                         queue: .main
-            ) { [weak self] _ in
-                guard let self = self else { return }
-                self.updateAvatar()
-            }
+        presenter?.viewDidLoad()
         alertProvider = AlertTwoButtonProvider(viewController: self)
-        updateAvatar()
     }
     
-    static func clean() {
-        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { record in
-            record.forEach { record in
-                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record]) {}
-            }
-        }
+    func configure(_ presenter: ProfilePresenterProtocol) {
+        self.presenter = presenter
+        presenter.view = self
     }
     
-    private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.avatarUrl,
-            let url = URL(string: profileImageURL)
-        else { return }
-        let processor = RoundCornerImageProcessor(cornerRadius: 61)
-        avatarImageView?.kf.setImage(with: url,
-                                     placeholder: UIImage(named: "avatar_placeholder"),
-                                     options: [.cacheSerializer(FormatIndicatedCacheSerializer.png),
-                                               .processor(processor)])
-    }
-    
-    private func configureView() {
+    func configureViews() {
         let avatarImage = UIImage(named: "avatar_placeholder")
         let avatarImageView = UIImageView(image: avatarImage)
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -98,10 +67,11 @@ final class ProfileViewController: UIViewController {
                 )
         logoutButton.tintColor = UIColor(named: "YP Red")
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        logoutButton.accessibilityIdentifier = "logout button"
         self.logoutButton = logoutButton
     }
     
-    private func addSubview() {
+    func addSubviews() {
         view.addSubview(avatarImageView ?? UIImageView())
         view.addSubview(nameLabel ?? UILabel())
         view.addSubview(loginNameLabel ?? UILabel())
@@ -109,7 +79,7 @@ final class ProfileViewController: UIViewController {
         view.addSubview(logoutButton ?? UIButton())
     }
     
-    private func makeConstraints() {
+    func makeConstraints() {
         NSLayoutConstraint.activate([
             avatarImageView!.heightAnchor.constraint(equalToConstant: 70),
             avatarImageView!.widthAnchor.constraint(equalToConstant: 70),
@@ -131,25 +101,17 @@ final class ProfileViewController: UIViewController {
         ])
     }
     
-    private func updateProfileDatails(profile: Profile) {
+    func updateProfileDetails(profile: Profile) {
         nameLabel?.text = profile.name
         loginNameLabel?.text = profile.loginName
         descriptionLabel?.text = profile.bio
     }
     
-    private func segueSplashViewController() {
-        let splashViewController = SplashViewController()
-        splashViewController.modalPresentationStyle = .fullScreen
-        present(splashViewController, animated: true)
+    func logoutAction() {
+        presenter?.logoutAction(viewController: self)
     }
     
-    private func logoutAction() {
-        oauth2TokenStorage.removeToken()
-        ProfileViewController.clean()
-        segueSplashViewController()
-    }
-    
-    @objc private func didTapLogoutButton() {
+    @objc func didTapLogoutButton() {
         alertProvider?.show(title: "Пока, пока!",
                             message: "Уверены что хотите выйти?",
                             yesButtonTitle: "Да",
