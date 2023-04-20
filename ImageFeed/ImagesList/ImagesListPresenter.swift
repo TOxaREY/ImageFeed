@@ -5,7 +5,6 @@
 //  Created by Anton Reynikov on 17.04.2023.
 //
 
-import Foundation
 import UIKit
 
 protocol ImagesListPresenterProtocol: AnyObject {

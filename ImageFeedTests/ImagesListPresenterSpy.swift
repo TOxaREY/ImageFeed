@@ -6,7 +6,6 @@
 //
 
 @testable import ImageFeed
-import Foundation
 import UIKit
 
 final class ImagesListPresenterSpy: ImagesListPresenterProtocol {

@@ -5,11 +5,10 @@
 //  Created by Anton Reynikov on 14.03.2023.
 //
 
-import Foundation
 import UIKit
 
 
-public struct AlertOkButtonProvider {
+struct AlertOkButtonProvider {
     
     private weak var viewController: UIViewController?
     
