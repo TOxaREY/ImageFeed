@@ -5,10 +5,9 @@
 //  Created by Anton Reynikov on 11.04.2023.
 //
 
-import Foundation
 import UIKit
 
-public protocol ProfileViewControllerProtocol: AnyObject {
+protocol ProfileViewControllerProtocol: AnyObject {
     var presenter: ProfilePresenterProtocol? { get set }
     var avatarImageView: UIImageView? { get set }
     func configureViews()

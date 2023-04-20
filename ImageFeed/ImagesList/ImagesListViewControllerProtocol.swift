@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public protocol ImagesListViewControllerProtocol: AnyObject {
+protocol ImagesListViewControllerProtocol: AnyObject {
     var presenter: ImagesListPresenterProtocol? { get set }
     var tableView: UITableView! { get }
     var alertProvider: AlertOkButtonProvider? { get }

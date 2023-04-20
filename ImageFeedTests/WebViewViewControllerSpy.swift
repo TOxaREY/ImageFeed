@@ -5,7 +5,7 @@
 //  Created by Anton Reynikov on 10.04.2023.
 //
 
-import ImageFeed
+@testable import ImageFeed
 import Foundation
 
 final class WebViewViewControllerSpy: WebViewViewControllerProtocol {

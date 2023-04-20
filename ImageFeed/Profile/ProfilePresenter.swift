@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 import WebKit
 
-public protocol ProfilePresenterProtocol: AnyObject {
+protocol ProfilePresenterProtocol: AnyObject {
     var view: ProfileViewControllerProtocol? { get set }
     func logoutAction(viewController: UIViewController)
     func viewDidLoad()

@@ -111,7 +111,7 @@ final class ProfileViewController: UIViewController, ProfileViewControllerProtoc
         presenter?.logoutAction(viewController: self)
     }
     
-    @objc func didTapLogoutButton() {
+    @objc private func didTapLogoutButton() {
         alertProvider?.show(title: "Пока, пока!",
                             message: "Уверены что хотите выйти?",
                             yesButtonTitle: "Да",
