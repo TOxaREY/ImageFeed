@@ -42,6 +42,7 @@
 		6CAC8C6229BF70B200CB0791 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAC8C6129BF70B200CB0791 /* ProfileService.swift */; };
 		6CAC8C6529BF729700CB0791 /* ProfileResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAC8C6429BF729700CB0791 /* ProfileResult.swift */; };
 		6CAC8C6729BF72B900CB0791 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAC8C6629BF72B900CB0791 /* Profile.swift */; };
+		6CAE902029F29668005F1636 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAE901E29F29560005F1636 /* Constants.swift */; };
 		6CB6796629A50B9B00ABEAC2 /* AuthConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB6796529A50B9B00ABEAC2 /* AuthConfiguration.swift */; };
 		6CB6796829A51BA400ABEAC2 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB6796729A51BA400ABEAC2 /* AuthViewController.swift */; };
 		6CC0803129CC7D9B00954C63 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0803029CC7D9B00954C63 /* NetworkError.swift */; };
@@ -114,6 +115,7 @@
 		6CAC8C6129BF70B200CB0791 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		6CAC8C6429BF729700CB0791 /* ProfileResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileResult.swift; sourceTree = "<group>"; };
 		6CAC8C6629BF72B900CB0791 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		6CAE901E29F29560005F1636 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6CB6796529A50B9B00ABEAC2 /* AuthConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConfiguration.swift; sourceTree = "<group>"; };
 		6CB6796729A51BA400ABEAC2 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		6CC0803029CC7D9B00954C63 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 		6CE71D9E29E4526500A3265B /* ImageFeedUITests */ = {
 			isa = PBXGroup;
 			children = (
+				6CAE901E29F29560005F1636 /* Constants.swift */,
 				6CE71D9F29E4526500A3265B /* ImageFeedUITests.swift */,
 			);
 			path = ImageFeedUITests;
@@ -570,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CE71DA029E4526500A3265B /* ImageFeedUITests.swift in Sources */,
+				6CAE902029F29668005F1636 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
