@@ -41,6 +41,7 @@ final class SplashViewController: UIViewController {
     }
     
     private func configureView() {
+        self.view.backgroundColor = UIColor(named: "YP Black")
         let splashScreenLogoImage = UIImage(named: "launch_screen_logo")
         let splashScreenLogoImageView = UIImageView(image: splashScreenLogoImage)
         splashScreenLogoImageView.translatesAutoresizingMaskIntoConstraints = false
